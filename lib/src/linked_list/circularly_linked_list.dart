@@ -15,9 +15,26 @@ class CircularlyLinkedList<E> extends Iterable<E> {
   /// The tail of the list.
   Node<E>? tail;
 
+  /// Number of nodes in the list
+  int size = 0;
+
   /// Returns true if the list is empty.
   @override
   bool get isEmpty => tail == null;
+
+  /// Returns (but does not remove) the first element of the list (or null if empty)
+
+  E? getFirst() {
+    // returns (but does not remove) the first element
+    if (isEmpty) return null;
+    return tail!.next!.value; // the head is *after* the tail
+  }
+
+  /// Returns (but does not remove) the last element of the list  (or null if empty)
+  E? getLast() {
+    if (isEmpty) return null;
+    return tail!.value;
+  }
 
   /// rotate the first element to the back of the list
   void rotate() {
@@ -70,7 +87,23 @@ class CircularlyLinkedList<E> extends Iterable<E> {
   Iterator<E> get iterator => _CircularlyLinkedListIterator(this);
 
   @override
-  String toString() => '[${join(', ')}]';
+  String toString() {
+    if (tail == null) {
+      return "()";
+    }
+    StringBuffer sb = StringBuffer();
+    sb.write("(");
+    Node<E> walk = tail!;
+    do {
+      walk = walk.next!;
+      sb.write(walk.value);
+      if (walk != tail) {
+        sb.write(", ");
+      }
+    } while (walk != tail);
+    sb.write(")");
+    return sb.toString();
+  }
 }
 
 class _CircularlyLinkedListIterator<E> implements Iterator<E> {
@@ -91,6 +124,6 @@ class _CircularlyLinkedListIterator<E> implements Iterator<E> {
     } else {
       _currentNode = _currentNode?.next;
     }
-    return _currentNode != null;
+    return _currentNode != _list.tail;
   }
 }
