@@ -5,7 +5,11 @@ import 'package:algorithms_and_data_structures_in_dart/src/queue/queue.dart';
 
 class TreeNode<T> {
   TreeNode(this.value);
+
+  /// The value of the node.
   T value;
+
+  /// The children of the node.
   List<TreeNode<T>> children = [];
 
   /// adds the node as a child
