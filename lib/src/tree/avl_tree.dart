@@ -1,12 +1,15 @@
 // Copyright (c) 2022 Razeware LLC
 // For full license & permission details, see LICENSE.
 
-import 'avl_node.dart';
 import 'dart:math' as math;
+import 'avl_node.dart';
 
+/// An AVL tree.
 class AvlTree<E extends Comparable<dynamic>> {
+  /// The root node of the tree.
   AvlNode<E>? root;
 
+  /// Inserts a new value into the tree.
   void insert(E value) {
     root = _insertAt(root, value);
   }
@@ -26,15 +29,20 @@ class AvlTree<E extends Comparable<dynamic>> {
           balancedNode.leftHeight,
           balancedNode.rightHeight,
         );
+
     return balancedNode;
   }
 
+  /// Removes a value from the tree.
   void remove(E value) {
     root = _remove(root, value);
   }
 
+  /// Removes a node from the tree.
   AvlNode<E>? _remove(AvlNode<E>? node, E value) {
-    if (node == null) return null;
+    if (node == null) {
+      return null;
+    }
     if (value == node.value) {
       if (node.leftChild == null && node.rightChild == null) {
         return null;
@@ -58,9 +66,11 @@ class AvlTree<E extends Comparable<dynamic>> {
           balancedNode.leftHeight,
           balancedNode.rightHeight,
         );
+
     return balancedNode;
   }
 
+  /// Rotates the tree to the left.
   AvlNode<E> leftRotate(AvlNode<E> node) {
     // 1
     final pivot = node.rightChild!;
@@ -80,9 +90,11 @@ class AvlTree<E extends Comparable<dynamic>> {
           pivot.rightHeight,
         );
     // 5
+
     return pivot;
   }
 
+  /// Rotates the tree to the right.
   AvlNode<E> rightRotate(AvlNode<E> node) {
     final pivot = node.leftChild!;
     node.leftChild = pivot.rightChild;
@@ -97,25 +109,31 @@ class AvlTree<E extends Comparable<dynamic>> {
           pivot.leftHeight,
           pivot.rightHeight,
         );
+
     return pivot;
   }
 
+  /// Right-left rotation.
   AvlNode<E> rightLeftRotate(AvlNode<E> node) {
     if (node.rightChild == null) {
       return node;
     }
     node.rightChild = rightRotate(node.rightChild!);
+
     return leftRotate(node);
   }
 
+  /// Left-right rotation.
   AvlNode<E> leftRightRotate(AvlNode<E> node) {
     if (node.leftChild == null) {
       return node;
     }
     node.leftChild = leftRotate(node.leftChild!);
+
     return rightRotate(node);
   }
 
+  /// Balances the tree.
   AvlNode<E> balanced(AvlNode<E> node) {
     switch (node.balanceFactor) {
       case 2:
@@ -137,6 +155,7 @@ class AvlTree<E extends Comparable<dynamic>> {
     }
   }
 
+  /// Checks if the tree contains a value.
   bool contains(E value) {
     var current = root;
     while (current != null) {
@@ -149,6 +168,7 @@ class AvlTree<E extends Comparable<dynamic>> {
         current = current.rightChild;
       }
     }
+
     return false;
   }
 

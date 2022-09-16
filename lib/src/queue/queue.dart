@@ -4,6 +4,7 @@
 import '../linked_list/doubly_linked_list.dart';
 import 'ring_buffer.dart';
 
+/// The abstract [Queue] class.
 abstract class Queue<E> {
   /// Adds an element to the end of the queue.
   bool enqueue(E element);
@@ -18,34 +19,38 @@ abstract class Queue<E> {
   E? get peek;
 }
 
+/// A [Queue] implemented using a [List].
 class QueueList<E> implements Queue<E> {
   final _list = <E>[];
 
   @override
   bool enqueue(E element) {
     _list.add(element);
+
     return true;
   }
 
   @override
-  E? dequeue() => (isEmpty) ? null : _list.removeAt(0);
+  E? dequeue() => isEmpty ? null : _list.removeAt(0);
 
   @override
   bool get isEmpty => _list.isEmpty;
 
   @override
-  E? get peek => (isEmpty) ? null : _list.first;
+  E? get peek => isEmpty ? null : _list.first;
 
   @override
   String toString() => _list.toString();
 }
 
+/// A [Queue] implemented using a [DoublyLinkedList].
 class QueueLinkedList<E> implements Queue<E> {
   final _list = DoublyLinkedList<E>();
 
   @override
   bool enqueue(E element) {
     _list.append(element);
+
     return true;
   }
 
@@ -62,7 +67,9 @@ class QueueLinkedList<E> implements Queue<E> {
   String toString() => _list.toString();
 }
 
+/// A [Queue] implemented using a [RingBuffer].
 class QueueRingBuffer<E> implements Queue<E> {
+  /// Creates a [QueueRingBuffer] with the given [capacity].
   QueueRingBuffer(int length) : _ringBuffer = RingBuffer<E>(length);
 
   final RingBuffer<E> _ringBuffer;
@@ -73,6 +80,7 @@ class QueueRingBuffer<E> implements Queue<E> {
       return false;
     }
     _ringBuffer.write(element);
+
     return true;
   }
 
@@ -89,6 +97,7 @@ class QueueRingBuffer<E> implements Queue<E> {
   String toString() => _ringBuffer.toString();
 }
 
+/// A [Queue] implemented using two Stacks.
 class QueueStack<E> implements Queue<E> {
   final _leftStack = <E>[];
   final _rightStack = <E>[];
@@ -96,16 +105,20 @@ class QueueStack<E> implements Queue<E> {
   @override
   bool enqueue(E element) {
     _rightStack.add(element);
+
     return true;
   }
 
   @override
   E? dequeue() {
     if (_leftStack.isEmpty) {
-      _leftStack.addAll(_rightStack.reversed); // 1
-      _rightStack.clear(); // 2
+      _leftStack.addAll(_rightStack.reversed);
+      _rightStack.clear();
     }
-    if (_leftStack.isEmpty) return null;
+    if (_leftStack.isEmpty) {
+      return null;
+    }
+
     return _leftStack.removeLast();
   }
 
@@ -121,6 +134,7 @@ class QueueStack<E> implements Queue<E> {
       ..._leftStack.reversed,
       ..._rightStack,
     ].join(', ');
+
     return '[$combined]';
   }
 }

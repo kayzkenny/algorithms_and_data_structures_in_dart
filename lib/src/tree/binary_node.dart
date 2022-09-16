@@ -3,7 +3,9 @@
 
 import 'dart:math';
 
+/// A node in a binary tree.
 class BinaryNode<T> {
+  /// Creates a new node with the given [value].
   BinaryNode(this.value);
 
   /// The value of the node.
@@ -73,12 +75,16 @@ class BinaryNode<T> {
       '$bottom└──',
       '$bottom ',
     );
+
     return '$a$b$c';
   }
 }
 
 /// Returns the height of the tree.
 int height(BinaryNode? node) {
-  if (node == null) return -1;
+  if (node == null) {
+    return -1;
+  }
+
   return 1 + max(height(node.leftChild), height(node.rightChild));
 }

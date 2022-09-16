@@ -1,15 +1,17 @@
+/// Trie Node
 class TrieNode<T> {
+  /// Creates a trie node.
   TrieNode({this.key, this.parent});
 
-  // 1
+  /// The key of this node.
   T? key;
 
-  // 2
+  /// The parent of this node.
   TrieNode<T>? parent;
 
-  // 3
+  /// The children of this node.
   Map<T, TrieNode<T>?> children = {};
 
-  // 4
+  /// Whether this node is terminating.
   bool isTerminating = false;
 }

@@ -3,7 +3,9 @@
 
 import 'package:algorithms_and_data_structures_in_dart/src/queue/queue.dart';
 
+/// The [Tree] class represents a tree data structure.
 class TreeNode<T> {
+  /// Constructor.
   TreeNode(this.value);
 
   /// The value of the node.
@@ -47,6 +49,7 @@ class TreeNode<T> {
         result = node;
       }
     });
+
     return result;
   }
 }

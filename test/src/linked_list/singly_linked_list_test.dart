@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Kehinde Akeredolu
 // For full license & permission details, see LICENSE.
 
-import 'package:test/test.dart';
 import 'package:algorithms_and_data_structures_in_dart/src/linked_list/singly_linked_list.dart';
+import 'package:test/test.dart';
 
 void main() {
   group('singly linked list ...', () {
@@ -32,7 +32,7 @@ void main() {
       list.push(3);
       list.push(2);
       list.push(1);
-      Node<int> middleNode = list.nodeAt(1)!;
+      final middleNode = list.nodeAt(1)!;
       list.insertAfter(middleNode, 42);
       expect(list.nodeAt(2)!.value, 42);
     });
@@ -42,7 +42,7 @@ void main() {
       list.push(3);
       list.push(2);
       list.push(1);
-      Node<int> middleNode = list.nodeAt(1)!;
+      final middleNode = list.nodeAt(1)!;
       list.removeAfter(middleNode);
       expect(list.nodeAt(1)!.value, 2);
     });

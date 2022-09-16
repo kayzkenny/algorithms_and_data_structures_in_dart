@@ -1,14 +1,17 @@
 import 'trie_node.dart';
 
+/// A trie.
 class StringTrie {
-  TrieNode<int> root = TrieNode(key: null, parent: null);
+  /// The root of the trie.
+  TrieNode<int> root = TrieNode();
 
+  /// Inserts a new [value] into the trie.
   void insert(String text) {
     // 1
     var current = root;
 
     // 2
-    for (var codeUnit in text.codeUnits) {
+    for (final codeUnit in text.codeUnits) {
       current.children[codeUnit] ??= TrieNode(
         key: codeUnit,
         parent: current,
@@ -24,18 +27,21 @@ class StringTrie {
   // When you reach the last one, it must be terminating.
   // If not, the collection wasn’t added, and what you’ve found is a
   // subset of a larger collection.
+  /// Returns true if the [text] is found in the trie.
   bool contains(String text) {
     var current = root;
-    for (var codeUnit in text.codeUnits) {
+    for (final codeUnit in text.codeUnits) {
       final child = current.children[codeUnit];
       if (child == null) {
         return false;
       }
       current = child;
     }
+
     return current.isTerminating;
   }
 
+  /// Removes a [text] from the trie.
   void remove(String text) {
     // 1
     var current = root;
@@ -60,6 +66,7 @@ class StringTrie {
     }
   }
 
+  /// Returns a list of all the words in the trie.
   List<String> matchPrefix(String prefix) {
     // 1
     var current = root;
@@ -77,7 +84,7 @@ class StringTrie {
 
   List<String> _moreMatches(String prefix, TrieNode<int> node) {
     // 1
-    List<String> results = [];
+    final List<String> results = [];
     if (node.isTerminating) {
       results.add(prefix);
     }
@@ -91,6 +98,7 @@ class StringTrie {
         ),
       );
     }
+
     return results;
   }
 }

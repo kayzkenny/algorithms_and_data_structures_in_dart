@@ -1,8 +1,13 @@
 // Copyright (c) 2022 Razeware LLC
 // For full license & permission details, see LICENSE.
 
+/// A ring buffer is a fixed size queue.
+/// When the buffer is full, adding a new element will overwrite the oldest element.
+/// This implementation uses a [List] to store the elements.
+/// The [List] is initialized with a fixed size.
 class RingBuffer<E> {
-  RingBuffer(int length) : _list = List.filled(length, null, growable: false);
+  /// Creates a ring buffer with the given [size].
+  RingBuffer(int length) : _list = List.filled(length, null);
 
   /// The list of elements in the ring buffer.
   final List<E?> _list;
@@ -24,7 +29,9 @@ class RingBuffer<E> {
 
   /// Adds an element to the ring buffer
   void write(E element) {
-    if (isFull) throw Exception('Buffer is full');
+    if (isFull) {
+      throw Exception('Buffer is full');
+    }
     _list[_writeIndex] = element;
     _writeIndex = _advance(_writeIndex);
     _size++;
@@ -37,15 +44,18 @@ class RingBuffer<E> {
 
   /// Dequeues an element from the ring buffer.
   E? read() {
-    if (isEmpty) return null;
+    if (isEmpty) {
+      return null;
+    }
     final element = _list[_readIndex];
     _readIndex = _advance(_readIndex);
     _size--;
+
     return element;
   }
 
   /// Return but does not remove the front element of the ring buffer.
-  E? get peek => (isEmpty) ? null : _list[_readIndex];
+  E? get peek => isEmpty ? null : _list[_readIndex];
 
   @override
   String toString() {
@@ -60,6 +70,7 @@ class RingBuffer<E> {
       index++;
     }
     text.write(']');
+
     return text.toString();
   }
 }

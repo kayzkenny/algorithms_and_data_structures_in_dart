@@ -1,7 +1,10 @@
 // Copyright (c) 2022 Razeware LLC
 // For full license & permission details, see LICENSE.
 
+/// A stack is a data structure that stores a list of elements.
+/// The stack is a Last-In-First-Out (LIFO) data structure.
 class Stack<E> {
+  /// The internal list that stores the elements of the stack.
   Stack() : _storage = <E>[];
 
   /// Constructs a stack with the given elements.
@@ -14,13 +17,19 @@ class Stack<E> {
 
   /// remove and return the top element or null if the stack is empty.
   E? pop() {
-    if (isEmpty) return null;
+    if (isEmpty) {
+      return null;
+    }
+
     return _storage.removeLast();
   }
 
   /// return the top element without removing it or null if the stack is empty.
   E? get peek {
-    if (isEmpty) return null;
+    if (isEmpty) {
+      return null;
+    }
+
     return _storage.last;
   }
 

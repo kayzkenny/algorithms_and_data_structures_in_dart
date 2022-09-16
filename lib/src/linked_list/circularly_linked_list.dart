@@ -1,7 +1,9 @@
 // Copyright (c) 2022 Kehinde Akeredolu
 // For full license & permission details, see LICENSE.
 
+/// A node in a [CircularlyLinkedList].
 class Node<T> {
+  /// The value stored in this node.
   Node({required this.value, this.next});
 
   /// The value of the node.
@@ -11,6 +13,7 @@ class Node<T> {
   Node<T>? next;
 }
 
+/// A circularly linked list.
 class CircularlyLinkedList<E> extends Iterable<E> {
   /// The tail of the list.
   Node<E>? tail;
@@ -26,13 +29,19 @@ class CircularlyLinkedList<E> extends Iterable<E> {
 
   E? getFirst() {
     // returns (but does not remove) the first element
-    if (isEmpty) return null;
+    if (isEmpty) {
+      return null;
+    }
+
     return tail!.next!.value; // the head is *after* the tail
   }
 
   /// Returns (but does not remove) the last element of the list  (or null if empty)
   E? getLast() {
-    if (isEmpty) return null;
+    if (isEmpty) {
+      return null;
+    }
+
     return tail!.value;
   }
 
@@ -46,7 +55,10 @@ class CircularlyLinkedList<E> extends Iterable<E> {
 
   /// returns (but does not remove) the first element
   E? peek() {
-    if (isEmpty) return null;
+    if (isEmpty) {
+      return null;
+    }
+
     return tail?.next?.value; // the head is *after* the tail
   }
 
@@ -56,7 +68,7 @@ class CircularlyLinkedList<E> extends Iterable<E> {
       tail = Node<E>(value: value);
       tail!.next = tail; // link to itself circularly
     } else {
-      Node<E> newest = Node<E>(value: value, next: tail!.next);
+      final Node<E> newest = Node<E>(value: value, next: tail!.next);
       tail!.next = newest;
     }
   }
@@ -73,13 +85,14 @@ class CircularlyLinkedList<E> extends Iterable<E> {
       return null;
     }
 
-    Node<E> head = tail!.next!;
+    final Node<E> head = tail!.next!;
 
     if (head == tail) {
       tail = null; // must be the only node left
     } else {
       tail!.next = head.next!; // removes "head" from the list
     }
+
     return head.value;
   }
 
@@ -89,23 +102,25 @@ class CircularlyLinkedList<E> extends Iterable<E> {
   @override
   String toString() {
     if (tail == null) {
-      return "()";
+      return '()';
     }
-    StringBuffer sb = StringBuffer();
-    sb.write("(");
+    final StringBuffer sb = StringBuffer();
+    sb.write('(');
     Node<E> walk = tail!;
     do {
       walk = walk.next!;
       sb.write(walk.value);
       if (walk != tail) {
-        sb.write(", ");
+        sb.write(', ');
       }
     } while (walk != tail);
-    sb.write(")");
+    sb.write(')');
+
     return sb.toString();
   }
 }
 
+/// An iterator for a [CircularlyLinkedList].
 class _CircularlyLinkedListIterator<E> implements Iterator<E> {
   _CircularlyLinkedListIterator(CircularlyLinkedList<E> list) : _list = list;
   final CircularlyLinkedList<E> _list;
@@ -117,13 +132,16 @@ class _CircularlyLinkedListIterator<E> implements Iterator<E> {
 
   @override
   bool moveNext() {
-    if (_list.isEmpty) return false;
+    if (_list.isEmpty) {
+      return false;
+    }
     if (_firstPass) {
       _currentNode = _list.tail?.next;
       _firstPass = false;
     } else {
       _currentNode = _currentNode?.next;
     }
+
     return _currentNode != _list.tail;
   }
 }

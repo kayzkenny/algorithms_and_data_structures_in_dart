@@ -1,5 +1,3 @@
-include: package:flutter_lints/flutter.yaml
-
 analyzer:
   exclude:
     - "**/*.g.dart"
@@ -71,9 +69,6 @@ linter:
     # Good APIs don't use ambiguous boolean parameters. Instead use named
     # parameters
     avoid_positional_boolean_parameters: true
-
-    # Do not use 'print' in production code.
-    avoid_print: true
 
     # Always prefer function references over typedefs.
     # Jumping twice in code to see the signature of a lambda sucks.

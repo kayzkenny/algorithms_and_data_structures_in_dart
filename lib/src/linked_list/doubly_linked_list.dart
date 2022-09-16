@@ -3,6 +3,7 @@
 
 /// Node of a doubly linked list
 class Node<T> {
+  /// Creates a node
   Node({required this.value, this.next, this.previous});
 
   /// The value of the node.
@@ -20,6 +21,7 @@ class Node<T> {
   }
 }
 
+/// An abstract linked list.
 abstract class LinkedList<E> {
   /// The head of the list.
   Node<E>? head;
@@ -43,6 +45,7 @@ abstract class LinkedList<E> {
   E? removeLast();
 }
 
+/// A doubly linked list.
 class DoublyLinkedList<E> extends Iterable<E> implements LinkedList<E> {
   @override
   Node<E>? head;
@@ -88,7 +91,9 @@ class DoublyLinkedList<E> extends Iterable<E> implements LinkedList<E> {
   @override
   E? pop() {
     // handle an empty list
-    if (isEmpty) return null;
+    if (isEmpty) {
+      return null;
+    }
 
     // save the return value
     final value = head?.value;
@@ -97,6 +102,7 @@ class DoublyLinkedList<E> extends Iterable<E> implements LinkedList<E> {
     if (head?.next == null) {
       head = null;
       tail = null;
+
       return value;
     }
 
@@ -110,7 +116,9 @@ class DoublyLinkedList<E> extends Iterable<E> implements LinkedList<E> {
   @override
   E? removeLast() {
     // delegate lists with one or zero items to pop
-    if (tail?.previous == null) return pop();
+    if (tail?.previous == null) {
+      return pop();
+    }
 
     // save the return value
     final value = tail?.value;
@@ -140,13 +148,16 @@ class _LinkedListIterator<E> implements Iterator<E> {
 
   @override
   bool moveNext() {
-    if (_list.isEmpty) return false;
+    if (_list.isEmpty) {
+      return false;
+    }
     if (_firstPass) {
       _currentNode = _list.head;
       _firstPass = false;
     } else {
       _currentNode = _currentNode?.next;
     }
+
     return _currentNode != null;
   }
 }

@@ -2,5 +2,6 @@ import 'package:algorithms_and_data_structures_in_dart/algorithms_and_data_struc
     as algorithms_and_data_structures_in_dart;
 
 void main(List<String> arguments) {
+  print(arguments);
   print('Hello world: ${algorithms_and_data_structures_in_dart.calculate()}!');
 }

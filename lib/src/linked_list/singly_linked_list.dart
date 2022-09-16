@@ -3,6 +3,7 @@
 
 /// Node of a singly linked list
 class Node<T> {
+  /// Creates a node
   Node({required this.value, this.next});
 
   /// The value of the node.
@@ -13,11 +14,15 @@ class Node<T> {
 
   @override
   String toString() {
-    if (next == null) return '$value';
+    if (next == null) {
+      return '$value';
+    }
+
     return '$value -> ${next.toString()}';
   }
 }
 
+/// A singly linked list.
 class SinglyLinkedList<E> extends Iterable<E> {
   /// The head of the list.
   Node<E>? head;
@@ -35,7 +40,9 @@ class SinglyLinkedList<E> extends Iterable<E> {
   void append(E value) {
     if (isEmpty) {
       push(value);
-      return;
+      {
+        return;
+      }
     }
     tail!.next = Node(value: value);
     tail = tail!.next;
@@ -49,16 +56,20 @@ class SinglyLinkedList<E> extends Iterable<E> {
       currentNode = currentNode.next;
       currentIndex += 1;
     }
-    return currentNode;
+    {
+      return currentNode;
+    }
   }
 
   /// Adds a value after a particular node in the list
   Node<E> insertAfter(Node<E> node, E value) {
     if (tail == node) {
       append(value);
+
       return tail!;
     }
     node.next = Node(value: value, next: node.next);
+
     return node.next!;
   }
 
@@ -70,13 +81,16 @@ class SinglyLinkedList<E> extends Iterable<E> {
     if (isEmpty) {
       tail = null;
     }
+
     return value;
   }
 
   /// Removes and return the node at the end of the list
   /// or null if the list is empty.
   E? removeLast() {
-    if (head?.next == null) return pop();
+    if (head?.next == null) {
+      return pop();
+    }
 
     var current = head;
     while (current!.next != tail) {
@@ -86,6 +100,7 @@ class SinglyLinkedList<E> extends Iterable<E> {
     final value = tail?.value;
     tail = current;
     tail?.next = null;
+
     return value;
   }
 
@@ -97,6 +112,7 @@ class SinglyLinkedList<E> extends Iterable<E> {
       tail = node;
     }
     node.next = node.next?.next;
+
     return value;
   }
 
@@ -108,7 +124,10 @@ class SinglyLinkedList<E> extends Iterable<E> {
 
   @override
   String toString() {
-    if (isEmpty) return 'Empty list';
+    if (isEmpty) {
+      return 'Empty list';
+    }
+
     return head.toString();
   }
 }
@@ -127,7 +146,9 @@ class _LinkedListIterator<E> implements Iterator<E> {
 
   @override
   bool moveNext() {
-    if (_list.isEmpty) return false;
+    if (_list.isEmpty) {
+      return false;
+    }
 
     if (_firstPass) {
       _currentNode = _list.head;

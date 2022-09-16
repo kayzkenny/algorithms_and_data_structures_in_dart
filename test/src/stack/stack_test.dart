@@ -1,8 +1,8 @@
 // Copyright (c) 2022 Kehinde Akeredolu
 // For full license & permission details, see LICENSE.
 
-import 'package:test/test.dart';
 import 'package:algorithms_and_data_structures_in_dart/src/stack/stack.dart';
+import 'package:test/test.dart';
 
 void main() {
   test('Stack Operations', () {
